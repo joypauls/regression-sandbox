@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# Regression Sandbox
+
+Start where you are and play around with simple models.
 
 ## Available Scripts
 

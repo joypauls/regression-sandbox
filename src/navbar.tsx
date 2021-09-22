@@ -25,7 +25,7 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
   
 
-const siteTitle = "Regression Sandbox 🚀";
+const siteTitle = "Regression Sandbox 🏖️";
 
 
 export default function WithSubnavigation() {

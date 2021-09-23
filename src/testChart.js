@@ -10,6 +10,10 @@ const TestChart = ({ data = [], dimensions = {} }) => {
   const svgHeight = height + margin.top + margin.bottom;
 
   React.useEffect(() => {
+
+    console.log(data);
+    console.log([data[0]]);
+
     const xScale = d3
       .scaleLinear()
       .domain([
@@ -20,8 +24,8 @@ const TestChart = ({ data = [], dimensions = {} }) => {
     const yScale = d3
       .scaleLinear()
       .domain([
-        d3.min(data[0].records, (d) => d.y) - 1,
-        d3.max(data[0].records, (d) => d.y) + 1
+        d3.min(data[0].records, (d) => d.y) - 2,
+        d3.max(data[0].records, (d) => d.y) + 2
       ])
       .range([height, 0]);
     // Create root container where we will append all other chart elements
@@ -51,7 +55,7 @@ const TestChart = ({ data = [], dimensions = {} }) => {
       .axisLeft(yScale)
       .ticks(5)
       .tickSize(-width)
-      .tickFormat((val) => `${val}%`);
+      .tickFormat((val) => `${val}`);
     const yAxisGroup = svg.append("g").call(yAxis);
     yAxisGroup.select(".domain").remove();
     yAxisGroup.selectAll("line").attr("stroke", "rgba(0, 0, 0, 0.2)");
@@ -60,21 +64,46 @@ const TestChart = ({ data = [], dimensions = {} }) => {
       .attr("opacity", 0.5)
       .attr("color", "black")
       .attr("font-size", "0.75rem");
-    // Draw the lines
+
+    // svg
+    //   .selectAll(".line")
+    //   .data(data)
+    //   .enter()
+    //   .append("path")
+    //   .attr("fill", "none")
+    //   .attr("stroke", (d) => d.color)
+    //   .attr("stroke-width", 3)
+    //   .attr("d", (d) => line(d.records));
+
+    svg
+      .selectAll("dot")
+      .data(data[0].records)
+      .enter()
+      .append("circle")
+      .attr("cx", function (d) { return xScale(d.x); } )
+      .attr("cy", function (d) { return yScale(d.y); } )
+      .attr("r", 4)
+      // .attr("transform", "translate(" + 100 + "," + 100 + ")");
+      .style("fill", data[0].color);
+
+    // setup line
     const line = d3
       .line()
       .x((d) => xScale(d.x))
       .y((d) => yScale(d.y));
 
     svg
-      .selectAll(".line")
-      .data(data)
-      .enter()
+    .selectAll(".line")
+    .data([data[1]])
+    .enter()
       .append("path")
       .attr("fill", "none")
-      .attr("stroke", (d) => d.color)
+      .attr("stroke", data[1].color)
       .attr("stroke-width", 3)
+      .attr("stroke-dasharray", "10,5")
       .attr("d", (d) => line(d.records));
+
+
   }, [data]);
 
   return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;

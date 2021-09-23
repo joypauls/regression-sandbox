@@ -26,13 +26,13 @@ function App() {
         <WithSubnavigation/>
         <Flex flex="1" direction="column" justifyContent="center">
           <Container maxWidth="80%">
-            <Heading as="h3">
+            {/* <Heading as="h3">
               Main Plot
             </Heading>
             <Text mb="3rem" maxWidth={["100%", "100%", "50%"]}>
               Lorem ipsum is placeholder text commonly used in the graphic, print, and
               publishing industries for previewing layouts and visual mockups.
-            </Text>
+            </Text> */}
             <Plot/>
           </Container>
         </Flex>

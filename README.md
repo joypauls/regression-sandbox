@@ -1,8 +1,8 @@
-> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and the [Chakra UI Template](https://chakra-ui.com/guides/integrations/with-cra) for it.
-
-# Regression Sandbox
+# Regression Sandbox 🏖️
 
 Start where you are and play around with simple models.
+
+> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and the [Chakra UI Template](https://chakra-ui.com/guides/integrations/with-cra) for it.
 
 ## Available Scripts
 

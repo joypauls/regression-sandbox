@@ -260,16 +260,16 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Inspiration',
+    label: 'Resources',
     children: [
       {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
+        label: '💡 How To Use',
+        subLabel: 'Instructions, Tips, & Tricks',
         href: '#',
       },
       {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
+        label: '📚 Further Reading',
+        subLabel: 'Our recommendations for self-study',
         href: '#',
       },
     ],
@@ -290,11 +290,15 @@ const NAV_ITEMS: Array<NavItem> = [
     ],
   },
   {
-    label: 'Learn Design',
-    href: '#',
+    label: 'About',
+    href: '/about',
   },
   {
-    label: 'Hire Designers',
-    href: '#',
+    label: 'Home',
+    href: '/',
   },
+  // {
+  //   label: 'Hire Designers',
+  //   href: '#',
+  // },
 ];

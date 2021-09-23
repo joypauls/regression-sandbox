@@ -56,7 +56,9 @@ export default function SmallWithSocial() {
         direction={{ base: 'column', md: 'row' }}
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
-        align={{ base: 'center', md: 'center' }}>
+        align={{ base: 'center', md: 'center' }}
+        fontSize={'sm'}
+      >
         <Text>
           ©{new Date().getFullYear()} by {siteTitle}
         </Text>

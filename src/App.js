@@ -9,6 +9,7 @@ import {
   VStack,
   Code,
   Grid,
+  Heading,
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
@@ -16,6 +17,7 @@ import { Logo } from './Logo';
 
 import WithSubnavigation from "./navbar";
 import SmallWithSocial from "./footer";
+import Plot from "./plot"
 
 function App() {
   return (
@@ -23,8 +25,15 @@ function App() {
       <Flex direction="column" minHeight="100vh">
         <WithSubnavigation/>
         <Flex flex="1" direction="column" justifyContent="center">
-          <Container>
-            This is content.
+          <Container maxWidth="80%">
+            <Heading as="h3">
+              Main Plot
+            </Heading>
+            <Text mb="3rem" maxWidth={["100%", "100%", "50%"]}>
+              Lorem ipsum is placeholder text commonly used in the graphic, print, and
+              publishing industries for previewing layouts and visual mockups.
+            </Text>
+            <Plot/>
           </Container>
         </Flex>
         <SmallWithSocial/>

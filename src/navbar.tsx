@@ -22,7 +22,8 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import { GuideModalButton } from "./GuideModalButton";
   
 
 const siteTitle = "Regression Sandbox 🏖️";
@@ -74,27 +75,9 @@ export default function WithSubnavigation() {
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
-          spacing={6}>
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}>
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300',
-            }}>
-            Sign Up
-          </Button>
+          spacing={6}
+        >
+          <GuideModalButton text="New Here? 👋"/>
           <ColorModeSwitcher justifySelf="flex-end" />
         </Stack>
       </Flex>
@@ -260,15 +243,19 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
+    label: 'Foundation',
+    href: '/foundation',
+  },
+  {
     label: 'Resources',
     children: [
       {
-        label: '💡 How To Use',
+        label: '💡  How To Use',
         subLabel: 'Instructions, Tips, & Tricks',
         href: '#',
       },
       {
-        label: '📚 Further Reading',
+        label: '📚  Further Reading',
         subLabel: 'Our recommendations for self-study',
         href: '#',
       },

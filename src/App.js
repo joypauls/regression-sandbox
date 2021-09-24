@@ -30,15 +30,27 @@ const Main = () => {
   );
 }
 
+const Foundation = () => {
+  return (
+    <>
+    <Heading as="h3">
+      Foundation
+    </Heading>
+    <Text mb="3rem" maxWidth={["100%", "100%", "50%"]}>
+      Put the picture frame problem here
+    </Text>
+    </>
+  );
+}
+
 const About = () => {
   return (
     <>
     <Heading as="h3">
-      Main Plot
+      Philosophy
     </Heading>
     <Text mb="3rem" maxWidth={["100%", "100%", "50%"]}>
-      Lorem ipsum is placeholder text commonly used in the graphic, print, and
-      publishing industries for previewing layouts and visual mockups.
+      There is no shortcut to complete mastery, but there are better ways to learn!
     </Text>
     </>
   );
@@ -48,6 +60,7 @@ function App() {
   const routes = {
     "/" :()=><Main/>,
     "/about" :()=> <About/>,
+    "/foundation" :()=> <Foundation/>,
   };
   const routeResults = useRoutes(routes);
   return (

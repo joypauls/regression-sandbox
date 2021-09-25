@@ -54,11 +54,11 @@ export const GuideModalButton = (props) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="green" mr={3} onClick={onClose} ref={initialRef}>
-              Take Me There!
+            <Button colorScheme="green" mr={3} onClick={onClose} ref={initialRef} as={"a"} href={"/foundation"}>
+              Take Me There
             </Button>
             <Button colorScheme="red" mr={3} onClick={onClose}>
-              Let Me Play.
+              Let Me Play
             </Button>
           </ModalFooter>
         </ModalContent>

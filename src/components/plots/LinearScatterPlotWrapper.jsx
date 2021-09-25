@@ -4,7 +4,7 @@ import {
   Flex
 } from '@chakra-ui/react';
 
-import TestChart from "./testChart";
+import LinearScatterPlot from "./LinearScatterPlot";
 
 import * as d3 from "d3";
 
@@ -28,9 +28,9 @@ function gaussianNoise(n, mu=0, sigma=1, clip=false) {
 }
 
 function generateTestData(n, mu=0, sigma=1) {
-  let xMax = 10; // arbitrary for now
+  let xMax = 9; // arbitrary for now
   let x = [...Array(n).keys()];
-  x = x.map(el => el * (xMax / n)); // scale
+  x = x.map(el => el * (xMax / n) + 1); // scale
   let err = gaussianNoise(x.length, mu, sigma)
   let beta = [5, 0.6]; // coefficients
   let y = x.map(el => beta[0] + (beta[1] * el));
@@ -70,7 +70,7 @@ const dimensions = {
 const Plot = () => {
   return (
     <Flex className="MainPlot" justifyContent="center">
-      <TestChart
+      <LinearScatterPlot
         data={[noisyData, trueData]}
         dimensions={dimensions}
       />

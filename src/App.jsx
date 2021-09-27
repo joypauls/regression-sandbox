@@ -21,7 +21,7 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 import { useRoutes } from "hookrouter";
-import { BsGear, BsInfoCircle } from "react-icons/bs";
+import { BsGear, BsInfoCircle, BsDownload } from "react-icons/bs";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -30,6 +30,8 @@ import LinearScatterPlotWrapper from "./components/plots/LinearScatterPlotWrappe
 
 const Main = () => {
   return (
+    <Flex justify="center">
+
     <Box
       // maxW={"320px"}
       w={"fit-content"}
@@ -56,6 +58,9 @@ const Main = () => {
         <Text>Linear Model</Text>
         <ButtonGroup colorScheme="pink" variant="ghost" spacing="1">
           <Button>
+            <BsDownload transform="scale(1.3)"></BsDownload>
+          </Button>
+          <Button>
             <BsInfoCircle transform="scale(1.3)"></BsInfoCircle>
           </Button>
           <Button>
@@ -65,6 +70,8 @@ const Main = () => {
       </Flex>
       <LinearScatterPlotWrapper/>
     </Box>
+
+    </Flex>
   );
 }
 

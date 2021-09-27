@@ -2,7 +2,7 @@
 import React from "react";
 import {
   Flex
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 import LinearScatterPlot from "./LinearScatterPlot";
 
@@ -67,9 +67,9 @@ const dimensions = {
   }
 };
 
-const Plot = () => {
+const LinearScatterPlotWrapper = () => {
   return (
-    <Flex className="MainPlot" justifyContent="center">
+    <Flex className="MainPlot" justify="center">
       <LinearScatterPlot
         data={[noisyData, trueData]}
         dimensions={dimensions}
@@ -78,4 +78,4 @@ const Plot = () => {
   );
 }
 
-export default Plot;
+export default LinearScatterPlotWrapper;

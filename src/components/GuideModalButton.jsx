@@ -30,11 +30,12 @@ export const GuideModalButton = (props) => {
         fontSize={'sm'}
         fontWeight={600}
         color={'white'}
-        bg={'pink.400'}
+        // bg={'pink.400'}
+        colorScheme="pink"
         // href={'/foundation'}
-        _hover={{
-          bg: 'pink.300',
-        }}
+        // _hover={{
+        //   bg: 'pink.300',
+        // }}
         onClick={onOpen}
       >
         {props.text}

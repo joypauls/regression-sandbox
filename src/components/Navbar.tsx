@@ -254,7 +254,7 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "/foundation",
       },
       {
-        label: "📈  Linear Regrerssion",
+        label: "📈  Linear Regression",
         subLabel: "A simple linear model",
         href: "#",
       },

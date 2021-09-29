@@ -19,6 +19,17 @@ import {
   useColorModeValue,
   Button,
   ButtonGroup,
+  useDisclosure,
+  Stack,
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Switch,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper
 } from "@chakra-ui/react";
 import { useRoutes } from "hookrouter";
 import { BsGear, BsInfoCircle, BsDownload } from "react-icons/bs";
@@ -29,46 +40,105 @@ import LinearScatterPlotWrapper from "./components/plots/LinearScatterPlotWrappe
 
 
 const Main = () => {
+  const { isOpen, onToggle } = useDisclosure();
+
+  console.log(isOpen);
+
   return (
     <Flex justify="center">
 
     <Box
       // maxW={"320px"}
       w={"fit-content"}
-      borderWidth="1px" 
-      borderRadius="lg" 
-      overflow="hidden"
+      borderWidth={2} 
+      borderRadius="md"
+      borderColor={useColorModeValue("gray.600", "gray.300")}
+      overflow="scroll"
       // bg={useColorModeValue("white", "gray.900")}
       bg={useColorModeValue("white", "gray.800")}
       // boxShadow={"xl"}
-      // p={6}
+      mx="1rem"
       textAlign={"center"}
     >
       <Flex 
         w="100%" 
         py={2}
-        px={3} 
+        px={2} 
         direction="row"
         justify="space-between"
         alignItems="center"
-        borderBottom={1}
+        borderBottom={2}
         borderStyle="solid"
-        borderColor={useColorModeValue("gray.200", "gray.700")}
+        // borderColor={useColorModeValue("gray.200", "gray.700")}
+        borderColor={useColorModeValue("gray.600", "gray.300")}
       >
         <Text>Linear Model</Text>
-        <ButtonGroup colorScheme="pink" variant="ghost" spacing="1">
+        <ButtonGroup colorScheme="pink" variant="ghost" spacing="0">
           <Button>
             <BsDownload transform="scale(1.3)"></BsDownload>
           </Button>
           <Button>
             <BsInfoCircle transform="scale(1.3)"></BsInfoCircle>
           </Button>
-          <Button>
+          <Button onClick={onToggle}>
             <BsGear transform="scale(1.3)"/>
           </Button>
         </ButtonGroup>
       </Flex>
       <LinearScatterPlotWrapper/>
+    </Box>
+
+    <Box
+      // maxW={"320px"}
+      minWidth={isOpen ? "20%" : "0%"}
+      w={isOpen ? "fit-content": "0"}
+      px={2}
+      py={3}
+      // w={isOpen ? "20%": "0"}
+      display={isOpen ? "flex" : "none"}
+      flexDirection="column"
+      justifyContent="space-between"
+      // ml="1rem"
+      borderWidth={2} 
+      borderRadius="md"
+      borderColor={useColorModeValue("gray.600", "gray.300")}
+      overflow="scroll"
+      // bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue("white", "gray.800")}
+      // boxShadow={"xl"}
+      // p={6}
+      textAlign={"center"}
+    >
+      <Stack direction="column" spacing="2">
+        {/* <Checkbox defaultIsChecked>Show True Function</Checkbox> */}
+        <FormControl display="flex" alignItems="center">
+          <Switch defaultChecked id="email-alerts" colorScheme="pink" pr={2}/>
+          <FormLabel htmlFor="email-alerts" mb="0" fontWeight="regular" fontSize="sm">
+            Show True Function
+          </FormLabel>
+        </FormControl>
+        <FormControl display="flex" alignItems="center">
+          <Switch defaultChecked id="email-alerts" colorScheme="pink" pr={2}/>
+          <FormLabel htmlFor="email-alerts" mb="0" fontWeight="regular" fontSize="sm">
+            Show Axes
+          </FormLabel>
+        </FormControl>
+        <NumberInput defaultValue={1.5} precision={2} step={0.1}>
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      </Stack>
+      <Stack direction="column" spacing="2">
+        <Button colorScheme="pink" variant="outline" size="sm">
+          Fit Regression Line
+        </Button>
+        <Button colorScheme="pink" variant="outline" size="sm">
+          Resample Data
+        </Button>
+      </Stack>
     </Box>
 
     </Flex>
@@ -145,7 +215,7 @@ function App() {
       <Flex direction="column" minHeight="100vh">
         <Navbar/>
         <Flex flex="1" direction="column" justifyContent="center">
-          <Container maxWidth="80%">
+          <Container maxWidth="100%">
             {routeResults}
           </Container>
         </Flex>

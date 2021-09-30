@@ -29,14 +29,19 @@ import {
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
-  NumberDecrementStepper
+  NumberDecrementStepper,
+  Divider,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
 } from "@chakra-ui/react";
 import { useRoutes } from "hookrouter";
 import { BsGear, BsInfoCircle, BsDownload } from "react-icons/bs";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import LinearScatterPlotWrapper from "./components/plots/LinearScatterPlotWrapper"
+import LinearScatterPlotWrapper from "./components/visuals/LinearScatterPlotWrapper"
 
 
 const Main = () => {
@@ -110,19 +115,25 @@ const Main = () => {
       textAlign={"center"}
     >
       <Stack direction="column" spacing="2">
+        <Button colorScheme="pink" variant="outline" size="sm" mb="1rem">
+          Fit Regression Line
+        </Button>
+        <Divider />
         {/* <Checkbox defaultIsChecked>Show True Function</Checkbox> */}
-        <FormControl display="flex" alignItems="center">
-          <Switch defaultChecked id="email-alerts" colorScheme="pink" pr={2}/>
-          <FormLabel htmlFor="email-alerts" mb="0" fontWeight="regular" fontSize="sm">
-            Show True Function
-          </FormLabel>
-        </FormControl>
-        <FormControl display="flex" alignItems="center">
-          <Switch defaultChecked id="email-alerts" colorScheme="pink" pr={2}/>
-          <FormLabel htmlFor="email-alerts" mb="0" fontWeight="regular" fontSize="sm">
-            Show Axes
-          </FormLabel>
-        </FormControl>
+        <Stack pt="1rem">
+          <FormControl display="flex" alignItems="center">
+            <Switch defaultChecked id="email-alerts" colorScheme="pink" pr={2}/>
+            <FormLabel htmlFor="email-alerts" mb="0" fontWeight="regular" fontSize="sm">
+              Show True Function
+            </FormLabel>
+          </FormControl>
+          <FormControl display="flex" alignItems="center">
+            <Switch defaultChecked id="email-alerts" colorScheme="pink" pr={2}/>
+            <FormLabel htmlFor="email-alerts" mb="0" fontWeight="regular" fontSize="sm">
+              Show Axes
+            </FormLabel>
+          </FormControl>
+        </Stack>
         <NumberInput defaultValue={1.5} precision={2} step={0.1}>
           <NumberInputField />
           <NumberInputStepper>
@@ -131,10 +142,19 @@ const Main = () => {
           </NumberInputStepper>
         </NumberInput>
       </Stack>
-      <Stack direction="column" spacing="2">
-        <Button colorScheme="pink" variant="outline" size="sm">
-          Fit Regression Line
-        </Button>
+      <Stack direction="column" spacing="5">
+        <Slider aria-label="slider-ex-2" colorScheme="pink" defaultValue={30}>
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
+        <Slider aria-label="slider-ex-2" colorScheme="pink" defaultValue={30}>
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
         <Button colorScheme="pink" variant="outline" size="sm">
           Resample Data
         </Button>

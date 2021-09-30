@@ -152,8 +152,11 @@ const LinearScatterPlot = ({ data = [], dimensions = {} }) => {
     // add points
     drawPoints(data[0], svg, xScale, yScale);
 
-    // add line
+    // add true line
     drawLine(data[1], svg, d3.line().x((d) => xScale(d.x)).y((d) => yScale(d.y)))
+
+    // add ols line
+    drawLine(data[2], svg, d3.line().x((d) => xScale(d.x)).y((d) => yScale(d.y)))
 
   }, [data]);
 

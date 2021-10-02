@@ -43,7 +43,7 @@ const drawPoints = (data, svg, xScale, yScale) => {
   let pointSizeHover = 10;
   let pointOpacity = 0.8;
   let pointOpacityHover = 1;
-  let pointColor = "#000000";
+  let pointStrokeColor = "#000000";
 
   svg
     .selectAll("dot")
@@ -54,7 +54,7 @@ const drawPoints = (data, svg, xScale, yScale) => {
     .attr("cy", function (d) { return yScale(d.y); } )
     .attr("r", pointSize)
     .attr("opacity", `${pointOpacity}`)
-    .style("fill", data.color)
+    .style("fill", data.fill)
     .property("selected", false)
 
     // interaction effects
@@ -63,7 +63,7 @@ const drawPoints = (data, svg, xScale, yScale) => {
         .duration("50")
         .attr("opacity", `${pointOpacityHover}`)
         .attr("r", pointSizeHover)
-        .attr("stroke", pointColor);
+        .attr("stroke", pointStrokeColor);
     })
     .on("mouseout", function (e, p) {
       if (!d3.select(this).property("selected")) {
@@ -96,7 +96,7 @@ const drawPoints = (data, svg, xScale, yScale) => {
           // .style("fill", "red")
           .attr("opacity", pointOpacityHover)
           .attr("r", pointSizeHover)
-          .attr("stroke", pointColor);
+          .attr("stroke", pointStrokeColor);
       }
 
       // d3.select(this).attr("isSelected", "true");
@@ -111,25 +111,46 @@ const drawPoints = (data, svg, xScale, yScale) => {
     });
 }
 
-const drawLine = (data, svg, line) => {
+const drawLine = (data, svg) => {
+
+//   var simpleLine = d3.svg.line()
+// d3.select('svg')
+//   .append('path')
+//   .attr({
+//     d: simpleLine([[0,0],[200,200]]),
+//     stroke: '#000'
+//   });
+
   let width = 3;
-  svg
-    .selectAll(".line")
-    .data([data])
-    .enter()
-    .append("path")
-    .attr("fill", "none")
-    .attr("stroke", data.color)
-    .attr("stroke-width", width)
+  console.log(d3.line()(data.points));
+
+  svg.append("path")
+    .style("stroke", data.stroke)
+    .style("stroke-width", width)
     .attr("stroke-dasharray", "6,3")
     .attr("opacity", 0.8)
-    .attr("d", (d) => line(d.records));
+    .attr("class", "line")
+    .attr("d", d3.line()(data.points));
+
+    // .attr("x1", xScale(data.records.x1))
+    // .attr("y1", yScale(data.records.y1))
+    // .attr("x2", xScale(data.records.x2))
+    // .attr("y2", yScale(data.records.y2));
+  // svg
+  //   .selectAll(".line")
+  //   .data([data])
+  //   .enter()
+  //   .append("path")
+  //   .attr("fill", "none")
+  //   .attr("stroke", data.color)
+  //   .attr("stroke-width", width)
+  //   .attr("stroke-dasharray", "6,3")
+  //   .attr("opacity", 0.8)
+  //   .attr("d", (d) => line(d.records));
 }
 
 
 const LinearScatterPlot = ({ data = [], dimensions = {} }) => {
-  // const {selected}
-
   const svgRef = React.useRef(null);
   const { width, height, margin = {} } = dimensions;
   const svgWidth = width + margin.left + margin.right;
@@ -138,8 +159,8 @@ const LinearScatterPlot = ({ data = [], dimensions = {} }) => {
 
   React.useEffect(() => {
 
-    const xScale = makeXScale(data[0].records, width);
-    const yScale = makeYScale(data[0].records, svgEndY);
+    const xScale = makeXScale(data.samples.records, width);
+    const yScale = makeYScale(data.samples.records, svgEndY);
 
     // Create root container where we will append all other chart elements
     const svgEl = d3.select(svgRef.current);
@@ -150,13 +171,21 @@ const LinearScatterPlot = ({ data = [], dimensions = {} }) => {
     drawAxes(svg, xScale, yScale, svgEndY);
 
     // add points
-    drawPoints(data[0], svg, xScale, yScale);
+    drawPoints(data.samples, svg, xScale, yScale);
 
     // add true line
-    drawLine(data[1], svg, d3.line().x((d) => xScale(d.x)).y((d) => yScale(d.y)))
+    data.true.points = [
+      [xScale(data.true.points[0][0]), yScale(data.true.points[0][1])], 
+      [xScale(data.true.points[1][0]), yScale(data.true.points[1][1])]
+    ];
+    drawLine(data.true, svg)
 
     // add ols line
-    drawLine(data[2], svg, d3.line().x((d) => xScale(d.x)).y((d) => yScale(d.y)))
+    data.fit.points = [
+      [xScale(data.fit.points[0][0]), yScale(data.fit.points[0][1])], 
+      [xScale(data.fit.points[1][0]), yScale(data.fit.points[1][1])]
+    ];
+    drawLine(data.fit, svg)
 
   }, [data]);
 

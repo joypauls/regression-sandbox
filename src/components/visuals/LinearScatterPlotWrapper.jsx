@@ -56,50 +56,36 @@ const leastSquares = (x, y) => {
 
 // linear regression data
 function generateLinearData(n, mu=0, sigma=1) {
-  let trueBeta = [5, 0.6]; // coefficients
+  let betaTrue = [5, 0.6]; // coefficients
   let xMin = 1; // arbitrary for now
   let xMax = 10;
   let xPad = 0.3; // line extends past points to look pretty
 
   let err = normal(n, mu, sigma);
-  let xNoise = uniform(n, xMin, xMax);
-  let yNoise = xNoise.map((x, i) => trueBeta[0] + (trueBeta[1] * x) + err[i]);
+  let xSample = uniform(n, xMin, xMax);
+  let ySample = xSample.map((x, i) => betaTrue[0] + (betaTrue[1] * x) + err[i]);
 
-  let randMin = d3.min(xNoise);
-  let randMax = d3.max(xNoise);
-  let x = [...Array(n).keys()];
-  x = x.map(el => ((el + 0.5) * (((randMax - randMin) + (2 * xPad)) / n)) + (randMin - xPad)); // rescale
-  let y = lineOutput(x, trueBeta[0], trueBeta[1]);
+  // endpoints for d3 to draw the line segments
+  let x = [d3.min(xSample) - xPad, d3.max(xSample) + xPad];
+  let y = lineOutput(x, betaTrue[0], betaTrue[1]);
 
-  let betaHat = leastSquares(xNoise, yNoise);
+  let betaHat = leastSquares(xSample, ySample);
   let yHat = lineOutput(x, betaHat[0], betaHat[1]);
 
   return {
-    noisy: xNoise.map((x, i) => { return({x: x, y: yNoise[i]}); }),
-    true: x.map((x, i) => { return({x: x, y: y[i]}); }),
-    fit: x.map((x, i) => { return({x: x, y: yHat[i]}); })
-  };
+    // the actual generated data points
+    samples: { records: xSample.map((x, i) => { return({x: x, y: ySample[i]}); }) },
+    // endpoints for line segments
+    true: { points: [[x[0], y[0]], [x[1], y[1]]] },
+    fit: { points: [[x[0], yHat[0]], [x[1], yHat[1]]] },
+  }
 }
 
 const data = generateLinearData(50, 0, 1.5);
+data.samples.fill = "#5579ed";
+data.true.stroke = "#000000";
+data.fit.stroke = "#de9516";
 
-const noisyData = {
-  name: "Noise",
-  color: "#5579ed",
-  records: data.noisy
-};
-
-const trueData = {
-  name: "True Function",
-  color: "#000000",
-  records: data.true
-};
-
-const fitData = {
-  name: "Fit",
-  color: "#ed9e4e",
-  records: data.fit
-};
 
 const dimensions = {
   width: 600,
@@ -116,7 +102,7 @@ const LinearScatterPlotWrapper = () => {
   return (
     <Flex className="main-plot" justify="center">
       <LinearScatterPlot
-        data={[noisyData, trueData, fitData]}
+        data={data}
         dimensions={dimensions}
       />
     </Flex>
